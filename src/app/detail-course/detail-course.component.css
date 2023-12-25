@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+*,h5,h1,h2,h3,h4,p,span{
+  font-family: 'Comfortaa', cursive;
+}
+.other-courses::-webkit-scrollbar{
+
+  height: 4px;
+
+}
+.other-courses::-webkit-scrollbar-track{
+  background: #d9d9d9;
+
+}
+.other-courses::-webkit-scrollbar-thumb{
+  background: #e59a4d;
+
+}
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+*,h5{
+  font-family: 'Comfortaa', cursive;
+}
+
+@media (min-width: 1000px) {
+  h5{
+    font-size: 16px;
+  }
+}
+
+.btn {
+  padding: 10px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: .3s;
+  z-index: 1;
+  font-family: inherit;
+  color: #17C3B2;
+}
+
+.btn::before {
+  content: '';
+  width: 0;
+  height: 300%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(30deg);
+  background: rgba(23, 195, 178, 0.28);
+  transition: .3s ease;
+  display: block;
+  z-index: -1;
+}
+
+.btn:hover::before {
+  width: 105%;
+}
+
+.btn:hover {
+  color: #111;
+}
+
+
+i:hover{
+  color: #fc7f02;
+  transition: .2s;
+}
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.2rem;
+  --stroke: #666;
+  --fill: #ffc73a;
+}
+.rate:hover{
+  background: none;
+}
+.rating input {
+  appearance: unset;
+}
+
+.rating label {
+  cursor: pointer;
+}
+
+.rating svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  overflow: visible;
+  fill: transparent;
+  stroke: var(--stroke);
+  stroke-linejoin: bevel;
+  stroke-dasharray: 12;
+  animation: idle 4s linear infinite;
+  transition: stroke 0.2s, fill 0.5s;
+}
+
+@keyframes idle {
+  from {
+    stroke-dashoffset: 24;
+  }
+}
+
+.rating label:hover svg {
+  stroke: var(--fill);
+}
+
+.rating input:checked ~ label svg {
+  transition: 0s;
+  animation: idle 4s linear infinite, yippee 0.75s backwards;
+  fill: var(--fill);
+  stroke: var(--fill);
+  stroke-opacity: 0;
+  stroke-dasharray: 0;
+  stroke-linejoin: miter;
+  stroke-width: 8px;
+}
+
+@keyframes yippee {
+  0% {
+    transform: scale(1);
+    fill: var(--fill);
+    fill-opacity: 0;
+    stroke-opacity: 1;
+    stroke: var(--stroke);
+    stroke-dasharray: 10;
+    stroke-width: 1px;
+    stroke-linejoin: bevel;
+  }
+
+  30% {
+    transform: scale(0);
+    fill: var(--fill);
+    fill-opacity: 0;
+    stroke-opacity: 1;
+    stroke: var(--stroke);
+    stroke-dasharray: 10;
+    stroke-width: 1px;
+    stroke-linejoin: bevel;
+  }
+
+  30.1% {
+    stroke: var(--fill);
+    stroke-dasharray: 0;
+    stroke-linejoin: miter;
+    stroke-width: 8px;
+  }
+
+  60% {
+    transform: scale(1.2);
+    fill: var(--fill);
+  }
+}

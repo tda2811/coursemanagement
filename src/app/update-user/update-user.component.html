@@ -1,0 +1,89 @@
+<body>
+<section>
+  <div  class="container">
+    <div  class="main-body">
+      <div class="row gutters-sm mt-5 d-flex justify-content-center align-items-center" style="position: relative">
+        <div class="pricing-header">
+          <h1 class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">UPDATE PROFILE</h1>
+          <hr style="opacity: .1;"/>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card" style="box-shadow: none;background: none;border: none">
+            <div class="card-body my-2">
+              <div  class="d-flex flex-column align-items-center text-center position-relative">
+                <img width="86%" src="{{user.srcImageAvatar}}"/>
+                <i  class="bi bi-pencil"  (click)="updateAvatar()" style="cursor:pointer;position: absolute;right: 5%; bottom: 10px; color: #1a202c"></i>
+                <input class="py-2" *ngIf="clickUpdate" style="border: none; outline: none; border-bottom: 1px solid black;" placeholder="URL image avatar" name="srcImageAvatar" [(ngModel)]="user.srcImageAvatar" type="text">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8" >
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row d-flex">
+                <div class="input-container" style="position:relative;">
+                  <input placeholder="Fullname" [(ngModel)]="user.fullname" id="input-field" type="text">
+                  <i class="bi bi-pencil" style="position: absolute;right: 30px;top: 30%;color: #1a202c"></i>
+                  <label for="input-field" class="input-label">FULL NAME:</label>
+                  <small style="color:red;" *ngIf="invalidFullname">
+                    This field can't be empty.
+                  </small>
+                  <span class="input-highlight"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="my-2">ID :</h6>
+                </div>
+                <div class="col-sm-9 text-secondary mt-2 text-warning">
+                  {{user.id}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="my-2">USERNAME :</h6>
+                </div>
+                <div class="col-sm-9 text-secondary mt-2 text-warning">
+                  {{user.username}}
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="my-2">ROLE :</h6>
+                </div>
+                <div class="col-sm-9 text-secondary mt-2 d-flex text-warning" >
+                  <p class="px-2">{{role}}</p>
+                </div>
+              </div>
+              <hr>
+
+              <div  class=" mb-3">
+                <input class="m-2" name="newPassword" [(ngModel)]="this.newPassword"  type="password" placeholder="New password" >
+                <br><small style="color: red" *ngIf="invalidField">Minimum password length is 5 characters.</small>
+              </div>
+              <div class=" mb-3">
+                <button type="submit" (click)="updateUser()" style="float: right; color: white;background: #1a202c;border: none"  class="btn btn-warning rounded-0">Update</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</section>
+</body>
+
+
+

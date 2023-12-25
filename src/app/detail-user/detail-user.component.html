@@ -1,0 +1,118 @@
+<body style="height: 100%" *ngIf="isAdmin">
+
+<div class="container">
+  <div class="row gutters-sm mt-5 d-flex" style="position: relative">
+    <div class="pricing-header">
+      <h1 class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">PROFILE: {{user.username}}</h1>
+      <hr style="opacity: .1;"/>
+    </div>
+    <div   class="col-md-4 mb-1" >
+      <div class="card " style="box-shadow: none;background: none;border: none" >
+        <div class="card-body " style="height: 100%;">
+          <div class="d-flex flex-column align-items-center text-center" >
+            <img class="mt-2"  width="100%" src="{{user.srcImageAvatar}}"/>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-8" >
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row" >
+            <div class="col-sm-3">
+              <h6 class="my-2">FULL NAME :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.fullname}}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">ID :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.id}}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">USERNAME :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.username}}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">BALANCE :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.balance}} $
+
+            </div>
+          </div>
+          <hr>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">ROLE :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2 d-flex" >
+              <p class="px-2" >{{role}}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row d-flex">
+            <div class="col-sm-3">
+              <h6 class="my-2">USER'S COURSES :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-1" >
+              <p class="m-0 p-0"  *ngIf="this.user.listCourse.length==0">No courses available yet</p>
+              <ng-container *ngIf="this.user.listCourse.length>0">
+                <p class="px-2" *ngFor="let course of this.user.listCourse">- {{course.nameCourse}} -</p>
+              </ng-container>
+
+            </div>
+          </div>
+          <hr>
+          <div class="row my-3">
+            <div class="col-sm-12 d-flex justify-content-between mb-3">
+              <div>
+                <button (click)="updateUser(user.username)" *ngIf="!userIsAdmin" style=" color: white;background: #3b3b46;border: none" class="btn btn-warning rounded-0" >
+                  Edit
+                </button>
+              </div>
+
+              <button *ngIf="!userIsAdmin" (click)="openModalDelete()" type="submit" style=" color: white;background: #3b3b46;border: none" class="btn btn-warning rounded-0 ">Delete</button>
+              <ng-container *ngIf="isModalDelete" >
+                <div  style="position: absolute; width: 98%;bottom:0;background: rgba(128,128,128,0.58);display: flex;justify-content: space-between;align-items: center">
+                  <p class="pt-2 m-0" style="color:#ffff">Delete user: {{user.username}}</p>
+                  <div>
+                    <i  (click)="isModalDelete = !isModalDelete" style="font-size: 20px;color: #ffffff;cursor: pointer" class="bi bi-x"></i>
+                    <i (click)="deleteUser(user.username)" style="font-size: 20px; color: red;padding: 0 10px;cursor: pointer" class="bi bi-trash3"></i>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+<div *ngIf="!isAdmin" style="text-align: center;color: #b70000;font-size: 60px">ACCESS DENIED</div>
+
+

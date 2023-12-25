@@ -1,0 +1,24 @@
+<section *ngIf="isAdmin || isMod"  style="background: rgb(234, 234, 234);" >
+  <div class="container px-4 px-lg-5 mt-5">
+    <form (ngSubmit)="updateCourse()" class="row gx-4 gx-lg-5  flex-column justify-content-center align-items-center">
+      <div class="col-md-6 mb-4 w-75 position-relative">
+        <img class="w-100" src="{{course.imgCourse}}"/>
+        <i class="bi bi-pencil" (click)="openInputSrcAvatar()"   style="color: rgb(0,0,0);position: absolute; bottom: 0; right: 3%"></i>
+        <input *ngIf="inputSrcImgCourse" class="py-2 w-100" style="background:none;border: none; outline: none; border-bottom: 1px solid rgba(128,128,128,0.55);margin-top: 20px" placeholder="URL image avatar" name="srcImageAvatar" [(ngModel)]="course.imgCourse" type="text">
+      </div>
+      <div class="col-md-6 w-75 d-flex flex-column" style="position: relative">
+        <input class= "fw-bolder w-100" name="nameCourse" [(ngModel)]="course.nameCourse" style="outline: none;border: none;background: none;border-bottom: 1px solid rgba(128,128,128,0.46);font-size: 30px"/>
+
+        <input class= "fw-bolder w-100 p-1" name="discriptionCourse" [(ngModel)]="course.discriptionCourse" style="outline: none;border: none;background: none;border-bottom: 1px solid rgba(128,128,128,0.46);margin-top: 20px"/>
+
+        <input type="number" class= "fw-bolder w-100 p-1" name="cost" [(ngModel)]="course.cost" style="outline: none;border: none;background: none;border-bottom: 1px solid rgba(128,128,128,0.46);margin-top: 20px"/>
+        <span *ngIf="invalidCost" style="font-size: 15px;color: red">Invalid</span>
+
+      </div>
+      <button type="submit" class=" my-5 text-center" style="width: 100px;border: none;margin-left: 20px;background: #3b3b46;color: white;padding: 10px">Update</button>
+    </form>
+
+  </div>
+
+</section>
+<div class="text-center p-3 display-5 text-danger" *ngIf="!isAdmin && !isMod">ACCESS DENIED</div>

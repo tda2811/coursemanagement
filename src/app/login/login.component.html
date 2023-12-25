@@ -1,0 +1,43 @@
+
+<div class="section full-height">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center align-self-center py-5">
+        <div class="section pb-5 pt-5 pt-sm-2 text-center">
+          <div class="pricing-header mx-auto text-center">
+            <h1 class="display-5 " style="font-family: 'Comfortaa', cursive;">LOGIN</h1>
+          </div>
+          <div class="card-3d-wrap mx-auto">
+            <div class="card-3d-wrapper">
+              <div class="card-front">
+                <div class="center-wrap">
+                  <form (ngSubmit)="loginUser()" class="section">
+                    <div class="form-group mt-3 text-start">
+                      <input type="email" name="username" class="form-style" placeholder="Username" [(ngModel)]="user.username" autocomplete="off">
+                      <small  *ngIf="invalidUserName" style="color:red;padding-top: 6px;font-size: 14px">
+                        This field can't be empty.
+                      </small>
+
+                    </div>
+                    <div class="form-group mt-4 text-start">
+                      <input type="password" name="password" class="form-style" placeholder="Password" [(ngModel)]="user.password"  autocomplete="off">
+                      <small  *ngIf="invalidPassword" style="color:red;font-size: 14px;padding-top: 6px">
+                        This field can't be empty.
+                      </small>
+                      <small  *ngIf="wrongInforUser" style="color:red;padding-top: 6px;font-size: 14px">
+                        Username or password is wrong
+                      </small>
+                    </div>
+                    <button type="submit" style="font-family: 'Comfortaa', cursive;"   class="btn mt-4">Submit</button>
+
+                    <p class="mb-0 mt-3 text-center"><a class="nav-link active link" aria-current="page" routerLink="/register" routerLinkActive="active" >Register</a></p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

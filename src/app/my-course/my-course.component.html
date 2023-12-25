@@ -1,0 +1,35 @@
+<body style="height: 100%;background: rgb(234, 234, 234);">
+<section class="py-5"  style="height:100%;background: rgb(234, 234, 234)">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="pricing-header">
+      <h1 class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">MY COURSES</h1>
+      <hr style="opacity: .1;"/>
+    </div>
+    <ng-container *ngIf="courses.length ==0">
+      <p class="text-center mt-5" style="font-size: 20px">Courses are not available yet.</p>
+    </ng-container>
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 ">
+      <div class="col col-sm-6 col-lg-4 mb-5 " *ngFor="let course of courses">
+        <div class="card h-100 rounded-0 p-2" style="position: relative">
+          <img style="cursor: pointer" (click)="detailCourse(course.idCourse)" class="card-img-top rounded-0" src="{{course.imgCourse}}" alt="..." />
+          <div class="card-body ">
+            <div class="text-center ">
+              <h5 class="fw-bolder mb-3">{{course.nameCourse}}</h5>
+
+            </div>
+          </div>
+          <div class=" pt-4 border-top-0 bg-transparent" style="margin: 0 auto">
+            <span  class="p-1 bg-success" style="color: #ffff;font-size: 11px;position: absolute;top: 9px;left: 9px">Bought</span>
+            <button   (click)="detailCourse(course.idCourse)">
+              View course
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>

@@ -1,0 +1,123 @@
+
+<body>
+<section class="py-5 ">
+  <ng-container *ngIf="isModalAddCourse">
+    <section>
+
+      <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col">
+            <div style="position: relative" class="card rounded-0">
+              <i (click)="isModalAddCourse = !isModalAddCourse" style="position: absolute;right: 10px;top: 10px;font-size: 20px" class="bi bi-x"></i>
+              <div class="row g-0">
+
+                <div class="col-xl-6 " style="background: #eaeaea;display: flex;justify-content: center;align-items: center;flex-direction: column">
+                  <div class="pricing-header mx-auto text-center">
+                    <h1 *ngIf="isAdmin" class="display-5  p-4" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">ADMIN</h1>
+                    <h1 *ngIf="!isAdmin && isMod" class="display-5  p-4" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">MODERATOR</h1>
+
+                  </div>
+                  <div style="color: #a6742c" class="py-2">
+                    {{this.tokenService.getUsernameFormToken()}}
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <form (submit)="addNewCourse()"  class="card-body p-md-5 text-black">
+                    <h3 class="mb-5 text-center text-uppercase"  style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #ff9700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">ADD NEW COURSE</h3>
+
+                    <div class="row">
+                      <div class="col-md-12  mb-6">
+
+                        <div class="form-outline  py-2">
+                          <label class="form-label" >Link banner</label>
+                          <input type="text" name="imgCourse" [(ngModel)]="newCourse.imgCourse"  class="form-control form-control-lg rounded-0" />
+
+                          <span *ngIf="invalidSrcImage"   class="p-2 my-2" style="color: red;font-size: 14px">Invalid</span>
+                        </div>
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Example1m">Name course</label>
+                          <input type="text" id="form3Example1m" name="nameCourse" [(ngModel)]="newCourse.nameCourse"  class="form-control form-control-lg rounded-0" />
+
+                          <span *ngIf="invalidNameCourse"  class="p-2 my-2" style="color: red;font-size: 14px">Invalid</span>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    <div class="form-outline  py-2">
+                      <label class="form-label" for="form3Example8">Cost</label>
+                      <input  type="number" id="form3Example8" name="cost" [(ngModel)]="newCourse.cost" class="form-control form-control-lg rounded-0" />
+
+                      <span *ngIf="invalidCost"  class="p-2 my-2" style="color: red;font-size: 14px">Invalid</span>
+
+                    </div>
+                    <div class="form-outline mb-4 ">
+                      <label class="form-label" for="form3Example9">Discription</label>
+                      <input  type="text" id="form3Example9" name="discriptionCourse" [(ngModel)]="newCourse.discriptionCourse"  class="form-control form-control-lg rounded-0 " />
+
+                      <span  *ngIf="invalidDiscription" class="p-2 my-2" style="color: red;font-size: 14px">Invalid</span>
+                    </div>
+                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                    </div>
+                    <div class="d-flex justify-content-end pt-3">
+                      <button  type="submit" class="btn rounded-0">Submit</button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+  <a>open</a>
+  <div *ngIf="!isModalAddCourse" class="container px-4 px-lg-5 mt-5">
+    <div class="pricing-header">
+      <h1 class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">ALL COURSES</h1>
+      <hr style="opacity: .1;"/>
+      <div style="cursor: pointer" class="p-2" *ngIf="((isAdmin || isMod))" (click)="openTabAddCourse()">
+        <i class="bi bi-plus-circle " style="font-size: 20px;color: red;padding-right: 10px"></i>ADD NEW COURSE
+      </div>
+    </div>
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 ">
+      <div class="col col-sm-6 col-lg-4 mb-5 " *ngFor="let course of courses">
+        <div class="card h-100 rounded-0 p-2" >
+          <!-- Product image-->
+          <img style="cursor: pointer" (click)="courseDetail(course.idCourse)" class="card-img-top rounded-0" src="{{course.imgCourse}}" alt="..." />
+          <!-- Product details-->
+          <div class="card-body ">
+            <div class="text-center ">
+              <!-- Product name-->
+              <h5 class="fw-bolder mb-3">{{course.nameCourse}}</h5>
+
+            </div>
+          </div>
+          <div class=" pt-4 border-top-0 bg-transparent d-flex justify-content-between align-items-center">
+            <span class="px-2" style="color: #e59a4d">${{course.cost}}</span>
+            <button style="cursor: pointer" (click)="courseDetail(course.idCourse)">
+              View course
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>

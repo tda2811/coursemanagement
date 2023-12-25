@@ -1,0 +1,121 @@
+
+
+<div class="container py-5" style="height: 100%">
+
+  <div   class="row gutters-sm mt-5 d-flex justify-content-center align-items-center" style="position: relative;">
+    <ng-container   *ngIf="checkClickLogout">
+
+      <div class="container-modal d-flex justify-content-center align-items-center " style="position: absolute; top: 50%; width: 100%; z-index: 999">
+        <div class="modal-content w-50 h-50 rounded-2 d-flex p-2 ">
+          <div class="modal-header">
+            <div class="pricing-header text-warning">
+              <h1 style="font-family: 'Comfortaa', cursive; font-size: 20px" >LOGOUT</h1>
+            </div>
+
+          </div>
+          <div class="modal-body">
+            <p style="color:#000000">Are you want logout?</p>
+          </div>
+          <div class="modal-footer ">
+            <button class="mx-3"  (click)="logout()">
+              Close
+            </button>
+            <button (click)="authService.logOut()">Logout</button>
+          </div>
+        </div>
+
+      </div>
+
+
+    </ng-container>
+    <div class="pricing-header">
+      <h1 class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">PROFILE</h1>
+      <hr style="opacity: .1;"/>
+    </div>
+    <div   class="col-md-4 mb-1" >
+      <div class="card " style="height: 100%;border: none;box-shadow: none ;background: transparent" >
+        <div class="card-body " style="height: 100%;border: none;box-shadow: none ">
+          <div class="d-flex flex-column align-items-center text-center" >
+            <img class="mt-2"  width="100%" src="{{user.srcImageAvatar}}"/>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-8" >
+      <div class="card mb-3" >
+        <div class="card-body">
+          <div class="row mt-2" >
+            <div class="col-sm-3">
+              <h6 class="my-2">FULL NAME :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.fullname}}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">ID :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.id}}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">USERNAME :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.username}}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">BALANCE :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2">
+              {{this.user.balance}} $
+              <button *ngIf="!isMaximum" (click)="navigateDeposit()"  style="color: #ef9f2f;background: transparent;border: none;padding:5px;padding-left: 0;padding: 5px 10px;float: right"><i class="bi bi-wallet2"></i></button>
+            </div>
+            <small style="color:#ff9700;" *ngIf="isMaximum">Your balance is already maximum</small>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="my-2">ROLE :</h6>
+            </div>
+            <div class="col-sm-9 text-secondary mt-2 d-flex" >
+              <p class="px-2"> {{role}} </p>
+            </div>
+          </div>
+          <hr>
+          <div class="row my-3">
+            <div class="col-sm-12 d-flex justify-content-between mb-3">
+              <div>
+                <button style=" color: white;background: #3b3b46;border: none" class="btn  rounded-0" (click)="updateUser()">
+                  Edit
+                </button>
+                <button *ngIf="isAdmin" style="margin-left: 10px; color: white;background: #3b3b46;border: none" class="btn  rounded-0" (click)="navigatePageListUser()" >All Users</button>
+              </div>
+
+              <button type="submit" (click)="logout()" style=" color: white;background: #3b3b46;border: none" class="btn rounded-0 ">Logout</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=League+Spartan:wght@100;200;300;400;500;600&display=swap');
+*,h5{
+  font-family: 'Comfortaa', cursive;
+}
+@media (min-width: 1000px) {
+  h5{
+    font-size: 16px;
+  }
+}
+.container{
+  background: rgb(234, 234, 234);
+}
+section{
+  background: rgb(234, 234, 234);
+  height: 100vh;
+}
+
+button {
+  padding: 8px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  transition: .3s;
+  z-index: 1;
+  font-family: inherit;
+  color: #17C3B2;
+}
+
+button::before {
+  content: '';
+  width: 0;
+  height: 300%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(30deg);
+  background: rgba(23, 195, 178, 0.28);
+  transition: .3s ease;
+  display: block;
+  z-index: -1;
+}
+
+button:hover::before {
+  width: 105%;
+}
+
+button:hover {
+  color: #111;
+}

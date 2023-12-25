@@ -1,0 +1,141 @@
+<body  style="background: rgb(234, 234, 234);height: 100vh">
+
+<section  style="background: rgb(234, 234, 234);" >
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 d-flex justify-content-center ">
+      <div class="col-md-6 mb-4"><img class="card-img-top mb-md-0" src="{{course.imgCourse}}" alt="..." /></div>
+      <div class="col-md-6" style="position: relative">
+        <h3 class="mb-3 mt-4 display-5 text-uppercase"  style="font-family: 'Comfortaa', cursive;font-size: 35px;
+  background: -webkit-linear-gradient(#46b4a1, #ff9700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">{{course.nameCourse}}</h3>
+        <div class="fs-5 mb-5 d-flex justify-content-between">
+          <p class="lead">{{course.discriptionCourse}}</p> <span style="color: #e59a4d">${{course.cost}}</span>
+        </div>
+        <p>Amount of owner : {{countSubcribe}}</p>
+        <div class="d-flex justify-content-between">
+
+          <button class="btn rounded-0" *ngIf="!checkBuyed" (click)="navigatePaymentPage(course.idCourse)"  type="button">
+            <i class="bi-cart-fill me-1"></i>
+            Buy
+          </button>
+          <span class="p-2 bg-success" *ngIf="checkBuyed" style="color: #ffff">Bought</span>
+          <div>
+            <i style="cursor: pointer" *ngIf="((isAdmin || isMod))" (click)="navigateUpdateCourse(course.idCourse)" class="bi bi-pencil px-2 text-warning"></i>
+
+            <i style="cursor: pointer" *ngIf="isAdmin" (click)="openTabWarning()" class="bi bi-trash px-2 text-danger"></i>
+
+          </div>
+
+        </div>
+
+        <ng-container *ngIf="this.noUser" >
+          <div class="" >
+            <p class="pt-2 m-0" style="color:red">Please login first!</p>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="isModalWarning" >
+          <div style="display: flex;align-items: center;justify-content: end; width: 100%;">
+            <p class="pt-2 mx-3" style="color:red">Delete course: {{course.nameCourse}}</p>
+            <div>
+              <i (click)="isModalWarning = !isModalWarning" style="font-size: 20px;color:#ff9700;cursor: pointer" class="bi bi-x"></i>
+              <i (click)="deleteCourse()" style="font-size: 20px; color: red;padding: 0 10px;cursor: pointer" class="bi bi-trash3"></i>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Main Body -->
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="pricing-header pt-4">
+        <h1 class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">Comments</h1>
+        <hr style="opacity: .1;"/>
+      </div>
+      <div class="col-sm-5 col-md-6 col-12 pb-4" style="max-height: 280px;overflow-y:scroll;">
+        <ng-container *ngIf="arrayComments.length >0">
+          <div *ngFor="let cmt of arrayComments" class="comment mt-4 text-justify float-left" style="position: relative">
+
+            <i *ngIf="username == cmt[3] || this.isAdmin" (click)="deleteCommentByUser(cmt[0])"  style="position: absolute;bottom: 50%;right: 40px" class="bi bi-trash3-fill"></i>
+            <i *ngIf="username == cmt[3]" (click)="checkIsUpdate(cmt[0])" style="position: absolute;bottom: 50%;right: 10px" class="bi bi-pencil"></i>
+            <div style="display: flex;align-items: center">
+              <img src="{{cmt[4]}}" alt="" class="rounded-circle" width="40" height="40">
+              <h4 style="margin: 0; padding: 0 10px">{{cmt[3]}}</h4>
+            </div>
+            <span style="color: gray; font-size: 10px;margin: 0;padding: 0">{{cmt[1].substring(0,10)}}</span>
+            <br>
+            <p *ngIf="!isUpdating" style="padding: 10px 5px;color: #e59a4d">{{cmt[2]}}</p>
+           <div style="display: flex;align-items: center" *ngIf="isUpdating && username == cmt[3]">
+             <input  style="padding: 5px 5px;color: #e59a4d;outline: none;border: 1px solid black" name="newContent" [(ngModel)]="newContent" />
+             <i (click)="updateComment(cmt[0],newContent)" style="color: green;background: white;cursor: pointer" class="bi bi-check-circle-fill mx-3 p-1">update</i>
+           </div>
+          </div>
+        </ng-container>
+        <p *ngIf="arrayComments.length ==0" style="text-align: center">
+            No comment yet
+        </p>
+      </div>
+      <div *ngIf="token" class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+        <form   (ngSubmit)="postComment()" id="algin-form">
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea  name="comment_text" [(ngModel)]="comment.comment_text"  id="message" rows="5" class="form-control"></textarea>
+            <span *ngIf="isNotSatisfy" style="padding: 5px 2px;color: red">Max length comment is 20 character</span>
+          </div>
+          <div class="form-group">
+            <button style="float: right;margin: 10px 0;border: none;background: #10705a;color: white" type="submit" id="post" >Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Related items section-->
+<section style="background: rgb(234, 234, 234);" class="py-4 bg-light ">
+  <div class="container px-4 px-lg-5 mt-2 ">
+    <div class="pricing-header">
+      <h1 class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">OTHER COURSES</h1>
+      <hr style="opacity: .1;"/>
+    </div>
+    <div class="other-courses row d-flex overflow-hidden overflow-x-scroll  flex-nowrap gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 ">
+      <div class="col mb-5 " *ngFor="let course of courses">
+        <div class="card h-100 rounded-0 p-2" >
+          <!-- Product image-->
+          <img style="cursor: pointer" (click)="detailCourse(course.idCourse)" class="card-img-top rounded-0" src="{{course.imgCourse}}" alt="..." />
+          <!-- Product details-->
+          <div class="card-body ">
+            <div class="text-center ">
+              <!-- Product name-->
+              <h5 class="fw-bolder">{{course.nameCourse}}</h5>
+
+            </div>
+          </div>
+          <div class=" pt-4 border-top-0 bg-transparent d-flex justify-content-between align-items-center">
+            <span class="px-2" style="color: #e59a4d">${{course.cost}}</span>
+            <button class="btn rounded-0" style="cursor: pointer" (click)="detailCourse(course.idCourse)">
+              View course
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Footer-->
+</body>

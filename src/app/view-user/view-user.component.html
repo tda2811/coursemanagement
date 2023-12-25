@@ -1,0 +1,141 @@
+
+<div class="container mt-3 mb-4 d-flex justify-content-center" style="overflow-x: hidden;">
+  <div class="col-lg-9 mt-4 mt-lg-0 py-3" style="height: 100%">
+    <div class="row " >
+      <div class="col-md-12 " style="position: relative">
+        <div class="pricing-header py-4">
+          <h1 *ngIf="!isModalAddUser" class="display-5" style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">ALL USERS</h1>
+          <h1  *ngIf="isModalAddUser" class="display-5 " style="font-family: 'Comfortaa', cursive;font-size: 25px;
+  background: -webkit-linear-gradient(#000000, #38e5e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">ADD NEW USER</h1>
+          <hr style="opacity: .1;"/>
+        </div>
+        <div *ngIf="isAdmin && !isModalAddUser" style="cursor: pointer;z-index: 1;width: 100%;background: white;padding: 20px "  (click)="openTabAddUser()">
+          <i  class="bi bi-plus-circle " style="font-size: 20px;color: red;padding-right: 10px"></i>ADD NEW USER
+        </div>
+        <div *ngIf="!isModalAddUser" style="max-height: 500px;overflow-y:scroll;" class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+          <table  class="table table-responsive-xl"  style="position: relative">
+
+
+            <div class="text-center p-3 display-5 text-danger" *ngIf="!isAdmin">ACCESS DENIED </div>
+
+
+            <tbody>
+            <tr  class="candidates-list" style="overflow: visible;position: relative;" *ngFor="let user of this.users">
+
+              <td class="title">
+                <div class="thumb">
+                  <img style="cursor: pointer" (click)="navigateViewDetailUserPage(user.username)" class="img-fluid" src="{{user.srcImageAvatar}}" alt="">
+                </div>
+                <div class="candidate-list-details">
+                  <div class="candidate-list-info">
+                    <div class="candidate-list-title">
+                      <h5  style="cursor: pointer" (click)="navigateViewDetailUserPage(user.username)" class="mb-0">{{user.fullname.toUpperCase()}}</h5>
+                    </div>
+                    <div class="candidate-list-option">
+                      <ul class="list-unstyled">
+                        <li  style="cursor: pointer" (click)="navigateViewDetailUserPage(user.username)">{{user.username}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td *ngIf="!screenMatcher">
+                <ul  class="list-unstyled mb-0 d-flex justify-content-center align-items-center">
+                  <div>
+                    <li style="cursor: pointer" (click)="navigateViewDetailUserPage(user.username)" ><i class="bi bi-eye"></i> </li>
+                  </div>
+
+
+                </ul>
+              </td>
+
+            </tr>
+
+            </tbody>
+
+          </table>
+        </div>
+
+        <ng-container *ngIf="isModalAddUser">
+          <section >
+            <div class="container " style="overflow-x: hidden">
+              <div class="row d-flex justify-content-center align-items-center h-100 ">
+                <div class="col">
+                  <div style="position: relative" class="card rounded-0 card-registration">
+                    <i (click)="isModalAddUser = !isModalAddUser" style="position: absolute;right: 10px;top: 10px;font-size: 20px" class="bi bi-x"></i>
+                    <div class="row g-0">
+
+                      <div class="col-xl-6 " style="background: #eaeaea;display: flex;justify-content: center;align-items: center;flex-direction: column">
+                        <div class="pricing-header mx-auto text-center">
+                          <h1 class="display-5  p-4" style="font-family: 'Comfortaa', cursive;">ADMIN</h1>
+
+
+                        </div>
+                        <div style="color:#a6742c" class="py-2">
+                          {{currentAdmin.username}}
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <form (ngSubmit)="addNewUSer()"  class="card-body p-md-5 text-black">
+
+                          <div class="row">
+                            <div class="col-md-12 mb-12">
+                              <div class="form-outline">
+                                <label class="form-label" for="form3Example1m">Full name</label>
+                                <input type="text" id="form3Example1m" name="fullname" [(ngModel)]="newUser.fullname" class="form-control form-control-lg rounded-0" />
+
+                                <span *ngIf="invalidFullname"  class="p-2 my-2" style="color: red;font-size: 14px"> Invalid</span>
+                              </div>
+                            </div>
+
+                          </div>
+
+
+                          <div class="form-outline  py-2">
+                            <label class="form-label" for="form3Example8">Username</label>
+                            <input type="text" id="form3Example8" name="username" [(ngModel)]="newUser.username" class="form-control form-control-lg rounded-0" />
+
+                            <span *ngIf="invalidUserName"  class="p-2 my-2" style="color: red;font-size: 14px">Invalid</span>
+                            <span *ngIf="existAccount"  class="p-2 my-2" style="color: red;font-size: 14px">Username is already</span>
+                          </div>
+                          <div class="form-outline mb-4 ">
+                            <label class="form-label" for="form3Example9">Password</label>
+                            <input type="password" id="form3Example9" name="password" [(ngModel)]="newUser.password" class="form-control form-control-lg rounded-0 " />
+
+                            <span *ngIf="invalidPassword"  class="p-2 my-2" style="color: red;font-size: 14px"> Invalid</span>
+                            <span *ngIf="isNotSatisfyLength"  class="p-2 " style="color: red;font-size: 14px;text-align: center">Minimum username and password length are 5 characters</span>
+                          </div>
+                          <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                            <h6 class="mb-0 me-4">ROLE:<select style="border: none;outline: none" name="roleSelected" [(ngModel)]="this.roleSelected">
+                              <option  class="text-center" [selected]="role === roleSelected"  *ngFor="let role of arrayRole" [value]="role">{{role.slice(5)}}</option>
+                            </select></h6>
+
+
+                          </div>
+                          <div class="d-flex justify-content-end pt-3">
+                            <button style="background: rgba(128,128,128,0.24)" type="submit" class="btn btn-lg ms-2 rounded-0">Submit</button>
+                          </div>
+
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
